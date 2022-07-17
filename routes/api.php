@@ -25,7 +25,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
         Route::post('/login', [UserController::class, 'login'])->name('login');
     });
 
-    Route::group(['middleware' => ['auth:api']], function() {
+    Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::group(['prefix' => 'vehicle'], function () {
             Route::get('/', [VehicleController::class, 'index'])->name('index');
             Route::get('/{uuid}', [VehicleController::class, 'show'])->name('show');
