@@ -24,4 +24,16 @@ class Passanger extends Model
     public function getByColVal($col,$val){
         return $this->where($col,$val)->with('creater','passanger');
     }
+    public function updateByColVal($col, $val, $data) {
+
+        return $this->where($col, $val)->update($data);
+    }
+
+
+    public static function boot() {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->creater_id = auth()->user()->id;
+        });
+    }
 }

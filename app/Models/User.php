@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use \BinaryCabin\LaravelUUID\Traits\HasUUID;
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
     protected $uuidFieldName = 'user_uuid';
     protected $table = 'users';
 
@@ -28,7 +29,8 @@ class User extends Authenticatable
         'sure_name',
         'password',
         'city',
-        'role_id'
+        'role_id',
+        'mobile_number'
     ];
 
     /**
@@ -53,6 +55,9 @@ class User extends Authenticatable
     public function transfers(){
         return $this->hasMany(Transfer::class, 'creater_id', 'id');
     }
+    public function role(){
+        return $this->hasMany(Role::class,'id','role_id');
+    }
     public function vehicle(){
         return $this->hasMany(Vehicle::class, 'creater_id', 'id');
     }
@@ -61,5 +66,20 @@ class User extends Authenticatable
     }
     public function driver(){
         return $this->hasMany(Driver::class, 'creater_id', 'id');
+    }
+
+    public function updateByColVal($col, $val, $data) {
+
+        return $this->where($col, $val)->update($data);
+    }
+    public function getByColVal($col,$val){
+        return $this->where($col,$val)->with('role');
+    }
+
+    public static function boot() {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->creater_id = auth()->user()->id??null;
+        });
     }
 }

@@ -13,12 +13,12 @@ class Roles extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('role_uuid')->nullable(true)->unique();
-            $table->string('role_name');
-            $table->timestamps();
-        });
+        // Schema::create('roles', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('role_uuid')->nullable(true)->unique();
+        //     $table->string('role_name');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -28,6 +28,6 @@ class Roles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        // Schema::dropIfExists('roles');
     }
 }

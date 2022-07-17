@@ -16,7 +16,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => 'admin',
             'sure_name' => 'admin',
             'user_uuid' =>(string) Str::uuid(),
@@ -26,7 +26,8 @@ class AdminUserSeeder extends Seeder
             'password' => Hash::make('adminadmin'),
             'remember_token' => Str::random(10),
             'role_id' => 1
-
         ]);
+        $user->assignRole(['admin']);
     }
 }
+

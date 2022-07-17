@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
+use App\Http\Requests\VehicleEditStoreRequest;
 use App\Http\Requests\VehicleStoreRequest;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class VehicleController extends Controller
 {
+
 
     /**
      * Display a listing of the resource.
@@ -23,15 +26,6 @@ class VehicleController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,9 +49,13 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $vehicle)
+    public function show($uuid)
     {
-        //
+        try {
+            return $this->getVehicleService()->show($uuid);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['message' => $e], 500);
+        }
     }
 
     /**
@@ -67,9 +65,13 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(VehicleEditStoreRequest $request,$uuid)
     {
-        //
+        try {
+            return $this->getVehicleService()->update($request,$uuid);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['message' => $e], 500);
+        }
     }
 
     /**
@@ -78,8 +80,12 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function archive(Vehicle $vehicle)
+    public function archive(Request $request,$uuid)
     {
-        //
+        try {
+            return $this->getVehicleService()->archive($request,$uuid);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['message' => $e], 500);
+        }
     }
 }

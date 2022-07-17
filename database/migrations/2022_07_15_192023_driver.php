@@ -20,6 +20,7 @@ class Driver extends Migration
             $table->foreign('creater_id')->references('id')->on('users');
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('users');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

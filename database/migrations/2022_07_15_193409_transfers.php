@@ -26,7 +26,10 @@ class Transfers extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->string('starting_point')->nullable(true);
             $table->string('ending_point')->nullable(true);
-            $table->boolean('status')->default(true);
+            $table->enum('status', ['pending', 'active', 'completed','canceled'])->default('pending');
+            $table->time('departure_time');
+            $table->time('end_time')->nullable();;
+            $table->timestamp('departure_date')->nullable();
             $table->timestamps();
         });
     }

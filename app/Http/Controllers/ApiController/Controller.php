@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
 use App\Http\Services\AuthService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

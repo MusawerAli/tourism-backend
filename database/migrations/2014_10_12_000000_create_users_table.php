@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('city')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

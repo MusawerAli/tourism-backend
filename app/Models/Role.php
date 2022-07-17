@@ -13,4 +13,10 @@ class Role extends Model
     protected $table = 'roles';
     protected $fillable = ['role_name'];
     public $timestamps = true;
+
+
+    public function getByColVal($col,$val){
+        return $this->where($col,$val)->first();
+    }
+
 }

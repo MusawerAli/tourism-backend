@@ -8,23 +8,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\Client as OClient;
+use Spatie\Permission\Models\Role;
 
 class AuthService extends Config
 {
     public function login($request){
-    $input = $request->all();
-    if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-        $user = Auth::user();
+    config(['auth.guards.api.driver' => 'session']);
+    if (Auth::guard('api')->attempt(['email' => request('email'), 'password' => request('password')])) {
+        $user = Auth::guard('api')->user();
         $tokenResult = $user->createToken('Personal Access Token');
-
         $token = $tokenResult->token;
         $token->save();
         $data['access_token'] = $tokenResult->accessToken;
         $data['user'] = $user;
-        // $data['transfers'] = $user->transfers;
-        // $data['vehicle'] = $user->vehicle;
-        // $data['driver'] = $user->driver;
-        // $data['passanger'] = $user->passanger;
         return new AuthResource($data);
     }else{
 

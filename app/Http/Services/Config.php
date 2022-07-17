@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\TraitHelper\CommonServices;
 use App\Models\Passanger;
 use App\Models\Driver;
+use App\Models\Role;
 use App\Models\Transfer;
 use App\Models\Vehicle;
 class Config {
@@ -28,7 +29,9 @@ class Config {
     public function getVehicleModel(){
         return new Vehicle();
     }
-
+    public function getRoleModel(){
+        return new Role();
+    }
 }
 
 ?>

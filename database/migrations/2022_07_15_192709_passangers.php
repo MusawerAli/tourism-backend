@@ -20,6 +20,7 @@ class Passangers extends Migration
             $table->foreign('creater_id')->references('id')->on('users');
             $table->unsignedBigInteger('passanger_id');
             $table->foreign('passanger_id')->references('id')->on('users');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

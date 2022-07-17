@@ -4,8 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-
-class VehicleStoreRequest extends FormRequest
+class PassangerStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +25,13 @@ class VehicleStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'model' => 'required',
-            'brand' => 'required',
-            'vehicle_no' => 'required|unique:vehicles,vehicle_no,'.$request->vehicle_no,
-            'color' => 'required'
+            'sure_name' => 'required',
+            'mobile_number' => 'required|unique:users,mobile_number,'.$request->vehicle_no,
+            'role_id' => 'required|numeric'
         ];
     }
 
-
-                    /**
+                        /**
          * Get the error messages for the defined validation rules.
          *
          * @return array
@@ -48,7 +45,6 @@ class VehicleStoreRequest extends FormRequest
                 'brand.required' => 'Brand is required',
                 'name.required' => 'Name is required',
                 'vehicle_no.required' => 'vehicle no is required',
-                'vehicle_no.unique' => 'vehicle no already added',
                 'color.required' => 'Color no is required',
             ];
         }
