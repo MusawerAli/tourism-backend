@@ -2,7 +2,6 @@
 
 namespace App\Http\TraitHelper;
 
-use Illuminate\Support\Facades\Response;
 trait CommonServices
 {
 
@@ -19,7 +18,7 @@ trait CommonServices
         $response['data'] = $data;
         $response['message'] = $msg;
         $response['status_code'] = $code;
-        return Response::json($response);
+        return response()->json($response, $code);
     }
 
     /**
@@ -33,7 +32,7 @@ trait CommonServices
         $response['success'] = false;
         $response['message'] = $error;
         $response['status_code'] = $code;
-        return Response::json($response);
+        return response()->json($response, $code);
     }
 
         /**
@@ -46,6 +45,6 @@ trait CommonServices
         $response['success'] = true;
         $response['message'] = $msg;
         $response['status_code'] = $code;
-        return Response::json($response);
+        return response()->json($response, $code);
     }
 }
