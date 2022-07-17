@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Transfer::class, 'creater_id', 'id');
     }
     public function role(){
-        return $this->hasMany(Role::class,'id','role_id');
+        return $this->hasOne(Role::class,'id','role_id');
     }
     public function vehicle(){
         return $this->hasMany(Vehicle::class, 'creater_id', 'id');

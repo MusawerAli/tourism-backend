@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Role;
 class AuthService extends Config
 {
     public function login($request){
-        $user = User::query()->where([['email', $request->email]])->first();
+        $user =  $this->getUserModel()->getByColVal('email',$request->email)->first();
         if (!$user) {
             return response()->json(['failed'=>'Incorrect Email'], 401);
         }
