@@ -31,7 +31,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
             Route::get('/{uuid}', [VehicleController::class, 'show'])->name('show');
             Route::post('/', [VehicleController::class, 'store'])->name('create');
             Route::put('/{uuid}', [VehicleController::class, 'update'])->name('update');
-            Route::delete('{uuid}', [VehicleController::class, 'archive'])->name('archive');
+            Route::put('/archive/{uuid}', [VehicleController::class, 'archive'])->name('archive');
         });
 
         Route::group(['prefix' => 'passanger'], function () {
@@ -39,7 +39,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
             Route::get('/{uuid}', [PassangerController::class, 'show'])->name('show');
             Route::post('/', [PassangerController::class, 'store'])->name('create');
             Route::put('/{uuid}', [PassangerController::class, 'update'])->name('update');
-            Route::delete('{uuid}', [PassangerController::class, 'archive'])->name('archive');
+            Route::put('/archive/{uuid}', [PassangerController::class, 'archive'])->name('archive');
         });
 
         Route::group(['prefix' => 'driver'], function () {
@@ -47,7 +47,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
             Route::get('/{uuid}', [DriverController::class, 'show'])->name('show');
             Route::post('/', [DriverController::class, 'store'])->name('create');
             Route::put('/{uuid}', [DriverController::class, 'update'])->name('update');
-            Route::delete('{uuid}', [DriverController::class, 'archive'])->name('archive');
+            Route::put('/archive/{uuid}', [DriverController::class, 'archive'])->name('archive');
         });
 
         Route::group(['prefix' => 'transfer'], function () {

@@ -25,6 +25,10 @@ class Vehicle extends Model
         return $this->where($col, $val)->update($data);
     }
 
+    public function getAllData(){
+        return $this->get();
+    }
+
 
     public static function boot() {
         parent::boot();

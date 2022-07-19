@@ -14,14 +14,14 @@ class DriverService extends Config
         $data =  $request->all();
         $data['password'] = Hash::make('12345678');
         $insert_data = $this->getUserModel()->create($data);
-        $insert_data->assignRole(['driver']);
-        $this->getdriverModel()->create(['passanger_id'=>$insert_data->id]);
+        $this->getdriverModel()->create(['driver_id'=>$insert_data->id]);
+        // $insert_data->assignRole('driver');
         DB::commit();
-        return $this->jsonSuccessResponse('successfully created',$insert_data);
+        return $this->jsonSuccessResponse('successfully created',$this->getdriverModel()->getAllDriver());
         }
 
         public function index(){
-            return $this->jsonSuccessResponse('successfully retrieve',$this->getdriverModel()->with('passanger')->get());
+            return $this->jsonSuccessResponse('successfully retrieve',$this->getdriverModel()->getAllDriver());
         }
 
         public function show($uuid){
@@ -35,7 +35,7 @@ class DriverService extends Config
             $user->name = $inputs['name'];
             $user->sure_name = $inputs['sure_name'];
             $user->save();
-            return $this->jsonSuccessResponse('successfully Updated',$user);
+            return $this->jsonSuccessResponse('successfully Updated',$this->getdriverModel()->getAllDriver());
 
         }
 
@@ -44,7 +44,7 @@ class DriverService extends Config
             $user = $this->getUserModel()->getByColVal('user_uuid',$uuid)->first();
             $user->active = ($inputs['status']=="")?0:1;
             $user->save();
-            return $this->jsonSuccessResponse('successfully Updated',$this->getdriverModel()->get());
+            return $this->jsonSuccessResponse('successfully Updated',$this->getdriverModel()->getAllDriver());
 
         }
 

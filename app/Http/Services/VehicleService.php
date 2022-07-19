@@ -8,12 +8,12 @@ class VehicleService extends Config
 {
 
     public function store($request){
-    $insert_data = $this->getVehicleModel()->create($request->all());
-    return $this->jsonSuccessResponse('successfully created',$insert_data);
+    $this->getVehicleModel()->create($request->all());
+    return $this->jsonSuccessResponse('successfully created',$this->getVehicleModel()->getAllData());
     }
 
     public function index(){
-        return $this->jsonSuccessResponse('successfully retrieve',$this->getVehicleModel()->all());
+        return $this->jsonSuccessResponse('successfully retrieve',$this->getVehicleModel()->getAllData());
     }
 
     public function show($uuid){
@@ -24,9 +24,9 @@ class VehicleService extends Config
         $inputs = $request->all();
         $update_vehicle = $this->getVehicleModel()->updateByColVal('vehicle_uuid',$uuid,$inputs);
         if(!$update_vehicle){
-            return $this->jsonErrorResponse('Something went wrong',$this->getVehicleModel()->all());
+            return $this->jsonErrorResponse('Something went wrong');
         }
-        return $this->jsonSuccessResponse('successfully Updated',$this->getVehicleModel()->all());
+        return $this->jsonSuccessResponse('successfully Updated',$this->getVehicleModel()->getAllData());
 
     }
 
@@ -40,7 +40,7 @@ class VehicleService extends Config
         if(!$update_vehicle){
             return $this->jsonErrorResponse('Something went wrong');
         }
-        return $this->jsonSuccessResponse('successfully Updated',$this->getVehicleModel()->all());
+        return $this->jsonSuccessResponse('successfully Updated',$this->getVehicleModel()->getAllData());
 
     }
 }
