@@ -24,11 +24,11 @@ class Transfer extends Model
     }
 
     public function passanger(){
-        return $this->hasOne(User::class, 'id', 'passanger_id');
+        return $this->hasOne(Passanger::class, 'id', 'passanger_id');
     }
 
     public function driver(){
-        return $this->hasOne(User::class, 'id', 'driver_id');
+        return $this->hasOne(Driver::class, 'id', 'driver_id');
     }
 
     public function getByColVal($col,$val){
@@ -45,6 +45,40 @@ class Transfer extends Model
 
         return $this->where($col, $val)->update($data);
     }
+
+
+    public function getTransfers($search_params){
+
+        return $this->with([
+            'driver:id,user_uuid,name,mobile_number,city',
+            'creater:id,user_uuid,name,mobile_number,city',
+            'passanger:id,user_uuid,name,mobile_number,city',
+            'vehicle'
+            ])
+            // ->with(['passanger' =>  function($sql) use ($search_params){
+
+            //     if (!empty($search_params['passanger_uuid'])) {
+            //         $sql->where('passanger_uuid', $search_params['passanger_uuid']);
+            //     }
+            // }])
+            // ->where(function ($innerSql) use ($search_params) {
+            //     $innerSql->whereHas('passanger.passanger', function ($pas_sql) use ($search_params) {
+            //         if (!empty($search_params['passanger_uuid'])) {
+
+            //             $pas_sql->where('passanger_uuid', $search_params['passanger_uuid']);
+            //         }
+            //     });
+            //     $innerSql->whereHas('driver.driver', function ($driver_sql) use ($search_params) {
+            //         if (!empty($search_params['driver_uuid'])) {
+
+            //             $driver_sql->where('driver_uuid', $search_params['driver_uuid']);
+            //         }
+            //     });
+            // })
+
+            ->get();
+    }
+
 
 
     public static function boot() {

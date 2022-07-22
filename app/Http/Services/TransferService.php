@@ -19,15 +19,9 @@ class TransferService extends Config
         return $this->jsonSuccessResponse('successfully created',$insert_data->with(['driver:id,user_uuid,name,mobile_number,city','creater:id,user_uuid,name,mobile_number,city','passanger:id,user_uuid,name,mobile_number,city'])->first());
         }
 
-        public function index(){
-            return $this->jsonSuccessResponse('successfully retrieve',$this->getTransferModel()->with(
-                [
-                'driver:id,user_uuid,name,mobile_number,city',
-                'creater:id,user_uuid,name,mobile_number,city',
-                'passanger:id,user_uuid,name,mobile_number,city',
-                'vehicle'
-                ]
-                )->get());
+        public function index($request){
+            $search_params = $this->prepareSearchParams($request->all());
+            return $this->jsonSuccessResponse('successfully retrieve',$this->getTransferModel()->getTransfers($search_params));
         }
 
         public function show($uuid){
@@ -53,6 +47,20 @@ class TransferService extends Config
 
         }
 
+            /**
+     * prepareSearchParams method
+     * prepares search params for get items
+     * @param type $request_params
+     * @return type
+     */
+    public function prepareSearchParams($request_params)
+    {
+        $search_params = [];
+        $search_params['driver_uuid'] = $request_params['driver_uuid'] ?? '';
+        $search_params['passanger_uuid'] = $request_params['passanger_uuid'] ?? '';
+        $search_params['status'] = $request_params['status'] ?? '';
+        return $request_params;
+    }
         public function updateStatus($request,$uuid){
             $update = $this->getTransferModel()->updateByColVal('transfer_uuid',$uuid,$request->all());
             if(!$update){

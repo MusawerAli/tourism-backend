@@ -16,10 +16,10 @@ class TransferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            return $this->getTransferService()->index();
+            return $this->getTransferService()->index($request);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['message' => $e], 500);
         }
